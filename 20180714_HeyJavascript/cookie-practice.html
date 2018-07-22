@@ -1,0 +1,33 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div id="cookies"></div>
+        <script>
+            function setCookie(name, value) {
+                let expires = new Date()
+                expires.setTime(expires.getTime() + (5 * 60 * 1000))
+                document.cookie = name + "=" + escape(value) + ";expires=" + expires.toGMTString()
+                console.log(document.cookie)
+            }
+            
+            function listCookie() {
+                let html = '<table>'
+                cookies = document.cookie.split(';')
+                cookies.forEach((cookie, index) => {
+                    let thisCookie = cookies[index].split('=')
+                    let cookieName = unescape(thisCookie[0])
+                    let cookieValue = unescape(thisCookie[1])
+                    html = html + '<tr><td>' + cookieName + '</td><td>' + cookieValue + '</td></tr>'
+                });
+                html += '</table>'
+                document.getElementById('cookies').innerHTML = html
+            }
+            let viewRecord = [1,2,3,4]
+            console.log(viewRecord)
+            setCookie('viewRecord', JSON.stringify(viewRecord))
+            listCookie()
+        </script>
+    </body>
+</html>

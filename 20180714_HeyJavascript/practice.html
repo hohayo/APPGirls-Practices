@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <meta charst="utf-8">
+        <style>
+            div {
+                font-size: 10px;
+                color: blue;
+            }
+            h1 {
+                font-size: 99px;
+                color: red;
+            }
+            #p1 {
+                color: yellow;
+                border-style: dotted;
+            }
+            .p2 {
+                color: beige
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div>
+            這是div
+            <button>這是按鈕</button>
+            <h1>這是標題</h1>
+            <p id="p1">這是第一個段落</p>
+            <p class="p2">這是第二個段落</p>
+            <input type="text">
+            <a href="https://tw.yahoo.com">這是超連結</a>
+            <img src="https://www.google.com.tw/logos/doodles/2018/world-cup-2018-day-24-5994561313701888-law.gif" alt="">
+            <video width="400" controls>
+                <source src="mov_bbb.mp4" type="video/mp4">
+                <source src="mov_bbb.ogg" type="video/ogg">
+                Your browser does not support HTML5 video.
+            </video>
+        </div> -->
+        <div>
+            <center>
+                <img src="http://lorempixel.com/g/400/200" alt="">
+                <img src="http://lorempixel.com/400/200" alt="">
+            </center>
+            <h1 id="output">
+
+            </h1>
+            <h2 id="input">
+                kkk
+            </h2>
+            <button onclick="myfunction()">
+                按鈕
+            </button>
+
+            <button onclick="checkPrize()">
+                    抽獎
+            </button>
+        </div>
+    <script>
+    
+    function checkPrize() {
+        let random = Math.random()
+        console.log(random)
+        if (random < 0.2) {
+            console.log('恭禧你中獎了')
+            document.getElementById('output').innerHTML = '恭禧你中獎了'
+        } else {
+            console.log('銘謝惠顧')
+            document.getElementById('output').innerHTML = '銘謝惠顧'
+        }
+    }
+        
+    console.log('hello')
+    document.getElementById('output')
+    .innerHTML='hello'
+
+    console.log(
+        document.getElementById('output').value
+    )
+
+    let nowWord = ''
+    function myfunction() {
+        nowWord = nowWord + 'hello'
+        document.getElementById('output').innerHTML = nowWord
+    }
+    </script>
+    </body>
+</html>

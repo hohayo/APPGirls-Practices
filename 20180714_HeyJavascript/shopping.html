@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <style>
+        #detail {
+            display: inline-block;  /*浮動區塊*/
+            width: 200px;
+        }
+        img {
+            width: 150px;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="product"></div>
+        已購買商品：<p id="alreadyBuy"></p>
+        <button onclick="pay()">結帳</button>
+        <div id="resultCheck"></div>
+        <div id="cookies"></div>
+        <pre id="jsonData"></pre>
+
+        <script src="product.js"></script>
+        <script>
+            let htmlfile = ''
+            product.forEach((pro, index) => {
+                htmlfile = htmlfile + '<div id="detail"><img src="' + pro.imgurl + '" /><h3>' + pro.name + '</h3><p>' + pro.type + '</p><p>價格:$' + pro.price + '</p><button onclick="view(' + index + ')">觀看</button><button onclick="buy(' + index + ')">加入購物車</button></div>' //字串變數連結
+                // htmlfile = '<div id="detail"><h3>肥皂</h3><p>生活用品</p></div><div id="detail"><h3>卡納赫拉娃娃</h3><p>娃娃</p></div><div id="detail"><h3>床單</h3><p>生活用品</p></div>...'
+                // console.log(htmlfile)
+            });
+            document.getElementById('product').innerHTML = htmlfile
+            let buyProduct = [] //加進購物車的東西
+            let viewRecord = '' //加進瀏覽紀錄
+            
+            function buy(index) {   //買了第?個產品(index為產品索引編號))
+                //設定一個變數放已購買的商品字串
+                let buyProductWord = ''
+                // console.log('buy',product[index])   //印出該產品物件資料
+                //將已購買商品放入buyProduct這個矩陣
+                buyProduct.push(product[index])     //加進購買產品進矩陣(紀錄到底買了什麼)
+                console.log(buyProduct)
+                //把buyProduct這個矩陣的每一個object拿出name，融到buyProductWord這個字串
+                buyProduct.forEach((proObj) => {
+                    buyProductWord = buyProductWord + proObj.name + '/' 
+                    //肥皂/床單/....  
+                });
+                //將buyProductWord這個字串放置到alreadyBuy這個dom
+                document.getElementById('alreadyBuy').innerHTML = buyProductWord //product[index].name
+            }
+
+            function pay() {
+                let paymoney = 0
+                buyProduct.forEach((proObj)=>{
+                    paymoney = paymoney + proObj.price
+                })
+                console.log(paymoney)
+                document.getElementById('resultCheck').innerHTML = '<p>總價:' + paymoney + '</p><button onclick="overpay()">確認結帳</button>'
+            }
+
+            function overpay() {
+                alert('購買成功')
+                buyProduct = [] //購買結束要清空
+                document.getElementById('alreadyBuy').innerHTML = ''
+                document.getElementById('resultCheck').innerHTML = ''
+            }
+
+            function view(index) {
+                buyProduct.push(product[index])
+                document.getElementById('jsonData').innerHTML = JSON.stringify(buyProduct)
+            }
+
+            function setCookie(name, value) {
+                // let value = JSON.parse(getCookie(name))
+                // console.log(value)
+                // let expires = new Date()
+                // expires.setTime(expires.getTime() + (5 * 60 * 1000))
+                // document.cookie = name + "=" + escape(value) + ";expires=" + expires.toGMTString()
+                // console.log(document.cookie)
+            }
+
+            function getCookie(name) {
+                let avg = escape(name) + '='
+                let cookies = document.cookie.split(';')
+                cookies.forEach((cookie) => {
+                    let thisCookie = cookie.split('=')
+                    if (thisCookie[0] == avg) {
+                        return unescape(thisCookie[1])
+                    }
+                })
+                return null
+            }
+            
+            function listCookie() {
+                let html = '<table>'
+                cookies = document.cookie.split(';')
+                cookies.forEach((cookie) => {
+                    let thisCookie = cookie.split('=')
+                    let cookieName = unescape(thisCookie[0])
+                    let cookieValue = unescape(thisCookie[1])
+                    html = html + '<tr><td>' + cookieName + '</td><td>' + cookieValue + '</td></tr>'
+                })
+                html += '</table>'
+                document.getElementById('cookies').innerHTML = html
+            }
+            
+            // let viewRecord = []
+            let newValue = [1,2,3]
+            // console.log(viewRecord)
+            setCookie('newValue', JSON.stringify(newValue))
+            listCookie()
+
+            console.log(getCookie('viewRecord'))
+        </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <style>
+            img {
+                width: 500px;
+            }
+            div {
+                padding-top: 70px;
+                text-align: center;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            button {
+                background-color: transparent;  /*背景色為透明*/
+                color: black;
+                border: 1px solid black;      /*寬度1px，實線*/
+                padding: 15px 32px;             /*上下 左右*/
+            }
+            button:hover {
+                background-color: black;      /*背景色為透明*/
+                color: white;
+                border: none;                   /*寬度1px，實線*/
+                padding: 15px 32px;             /*上下 左右*/
+            }
+            body {
+                background-image:url('https://picsum.photos/800/640/?random&blur');
+                background-size: cover;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p>今天的日期：<span id="date"></span></p>   
+            <img src="https://picsum.photos/500/300/?random" />  
+            <h1>測試你有沒中獎</h1>
+            請輸入你的姓名:<input id="name"></input>
+            <br>
+            <br>
+            <br>
+            <button onclick="clickButton()">點擊</button>
+            <button onclick="check()">抽獎</button>
+            <p id="result"></p>
+            <div id="lottery"></div>
+        </div>
+      <!--最好放在body底下最保險的-->
+      <script>
+        document.getElementById('date').innerHTML = new Date()
+
+        function clickButton() {
+            let name = document.getElementById('name').value
+            
+            if (!name) {
+                document.getElementById('result').innerHTML = '你沒有輸入名字'
+                return false
+            }
+            
+            let randomNumber = Math.random()
+            if (randomNumber < 0.5) {
+                document.getElementById('result').innerHTML = name + '是大正妹'
+            } else {
+                document.getElementById('result').innerHTML = name + '不是大正妹'
+            }
+            console.log(name)
+        }
+        function check() {
+            let random = Math.random()
+            let result = '銘謝惠顧'
+            if (random > 0.3) {
+                result = '恭禧你中獎了'
+            }
+            document.getElementById('lottery')
+            .innerHTML = result
+        }
+      </script>
+    </body>
+</html>
+
+<!--
+    1. 先作出一個主要骨架 html, head, body
+    2. 設定css
+-->
